@@ -953,18 +953,18 @@ Watching file descriptors
 
 .. method:: loop.add_reader(fd, callback, *args)
 
-   Start monitoring the *fd* file descriptor for read availability and
+   Start monitoring the file descriptor *fd* for read availability and
    invoke *callback* with the specified arguments once *fd* is available for
    reading.
 
 .. method:: loop.remove_reader(fd)
 
-   Stop monitoring the *fd* file descriptor for read availability. Returns
+   Stop monitoring the file descriptor *fd* for read availability. Returns
    ``True`` if *fd* was previously being monitored for reads.
 
 .. method:: loop.add_writer(fd, callback, *args)
 
-   Start monitoring the *fd* file descriptor for write availability and
+   Start monitoring the file descriptor *fd* for write availability and
    invoke *callback* with the specified arguments once *fd* is available for
    writing.
 
@@ -973,7 +973,7 @@ Watching file descriptors
 
 .. method:: loop.remove_writer(fd)
 
-   Stop monitoring the *fd* file descriptor for write availability. Returns
+   Stop monitoring the file descriptor *fd* for write availability. Returns
    ``True`` if *fd* was previously being monitored for writes.
 
 See also :ref:`Platform Support <asyncio-platform-support>` section
