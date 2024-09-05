@@ -333,8 +333,8 @@ daemonic, and cannot be :ref:`joined <meth-thread-join>`.  They are never delete
 since it is impossible to detect the termination of alien threads.
 
 
-.. class:: Thread(group=None, target=None, name=None, args=(), kwargs={}, *, \
-                  daemon=None)
+.. class:: Thread(self, group=None, target=None, name=None, args=(), kwargs=None, \
+                  *, daemon=None)
 
    This constructor should always be called with keyword arguments.  Arguments
    are:
