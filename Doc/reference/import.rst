@@ -548,7 +548,7 @@ the module.
 
 It is **strongly** recommended that you rely on :attr:`__spec__` and
 its attributes instead of any of the other individual attributes
-listed below.
+listed below, except :attr:`__name__`.
 
 .. attribute:: __name__
 
@@ -599,6 +599,10 @@ listed below.
    .. versionchanged:: 3.12
       Raise :exc:`DeprecationWarning` instead of :exc:`ImportWarning`
       when falling back to ``__package__``.
+
+   .. deprecated-removed:: 3.13 3.15
+      ``__package__`` will cease to be set or taken into consideration
+      by the import system or standard library.
 
 
 .. attribute:: __spec__
@@ -656,6 +660,10 @@ listed below.
 
    It is **strongly** recommended that you rely on :attr:`__spec__`
    instead of ``__cached__``.
+
+   .. deprecated-removed:: 3.13 3.15
+      ``__cached__`` will cease to be set or taken into consideration
+      by the import system or standard library.
 
 .. _package-path-rules:
 
