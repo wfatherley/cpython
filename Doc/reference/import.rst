@@ -345,33 +345,37 @@ If and when a module spec is found, the import machinery will use it (and
 the loader it contains) when loading the module.  Here is an approximation
 of what happens during the loading portion of import::
 
+    # instantiate module object
     module = None
     if spec.loader is not None and hasattr(spec.loader, 'create_module'):
-        # It is assumed 'exec_module' will also be defined on the loader.
         module = spec.loader.create_module(spec)
     if module is None:
         module = ModuleType(spec.name)
-    # The import-related module attributes get set here:
+
+    # set import-related module attributes
     _init_module_attrs(spec, module)
 
+    # unsupported
     if spec.loader is None:
-        # unsupported
         raise ImportError
+
+    # possibly execute (nee load) module and drop in to sys.modules
     if spec.origin is None and spec.submodule_search_locations is not None:
-        # namespace package
-        sys.modules[spec.name] = module
+        sys.modules[spec.name] = module              # namspace package
     elif not hasattr(spec.loader, 'exec_module'):
-        module = spec.loader.load_module(spec.name)
+        module = spec.loader.load_module(spec.name)  # legacy loader
     else:
         sys.modules[spec.name] = module
         try:
-            spec.loader.exec_module(module)
+            spec.loader.exec_module(module)          # regular package
         except BaseException:
             try:
                 del sys.modules[spec.name]
             except KeyError:
                 pass
             raise
+
+    # return the module
     return sys.modules[spec.name]
 
 Note the following details:
