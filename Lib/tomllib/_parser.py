@@ -5,6 +5,7 @@
 from __future__ import annotations
 
 from collections.abc import Iterable
+from pathlib import Path
 import string
 from types import MappingProxyType
 from typing import Any, BinaryIO, NamedTuple
@@ -54,9 +55,12 @@ class TOMLDecodeError(ValueError):
     """An error raised if a document is not valid TOML."""
 
 
-def load(fp: BinaryIO, /, *, parse_float: ParseFloat = float) -> dict[str, Any]:
+def load(fp: BinaryIO | Path, /, *, parse_float: ParseFloat = float) -> dict[str, Any]:
     """Parse TOML from a binary file object."""
-    b = fp.read()
+    if isinstance(fp, Path):
+        b = fp.read_bytes()
+    else:
+        b = fp.read()
     try:
         s = b.decode()
     except AttributeError:

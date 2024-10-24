@@ -23,8 +23,11 @@ class TestMiscellaneous(unittest.TestCase):
             file_path.write_text(content)
 
             with open(file_path, "rb") as bin_f:
-                actual = tomllib.load(bin_f)
-        self.assertEqual(actual, expected)
+                actual_open = tomllib.load(bin_f)
+
+            actual_path = tomllib.load(Path(file_path))
+
+        self.assertEqual(actual_open, expected)
 
     def test_incorrect_load(self):
         content = "one=1"
@@ -35,6 +38,8 @@ class TestMiscellaneous(unittest.TestCase):
             with open(file_path, "r") as txt_f:
                 with self.assertRaises(TypeError):
                     tomllib.load(txt_f)  # type: ignore[arg-type]
+            with self.assertRaises(TypeError):
+                tomllib.load(Path(file_path))
 
     def test_parse_float(self):
         doc = """
