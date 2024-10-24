@@ -298,8 +298,11 @@ The simplest form compares a subject value against one or more literals::
                 return "Not found"
             case 418:
                 return "I'm a teapot"
-            case _:
+            case some_other_error_code:
                 return "Something's wrong with the internet"
+
+A terminating case block may have an informative *capturing name* that never
+fails to match. In the example above, ``some_other
 
 Note the last block: the "variable name" ``_`` acts as a *wildcard* and
 never fails to match. If no case matches, none of the branches is executed.
